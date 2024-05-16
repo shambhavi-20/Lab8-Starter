@@ -4,7 +4,7 @@
     "description": "PWA for lab 8",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "lightBlue",
+    "background_color": "white",
     "theme_color": "pink",
     "icons": [
       {
