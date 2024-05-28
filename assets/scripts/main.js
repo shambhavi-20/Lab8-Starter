@@ -94,7 +94,7 @@ if (localStorage.getItem('recipes') != null){
 //            take two parameters - resolve, and reject. These are functions
 //            you can call to either resolve the Promise or Reject it.
 /**************************/
-let requestRecipes = [];
+  let requestRecipes = [];
 
 // A4-A11 will all be *inside* the callback function we passed to the Promise
 // we're returning
@@ -119,23 +119,25 @@ let requestRecipes = [];
 // A10. TODO - Log any errors from catch using console.error
 // A11. TODO - Pass any errors to the Promise's reject() function
 
-return new Promise(async (resolve, reject) => { //are we allowed to use async here? 
+  return new Promise(async (resolve, reject) => { //are we allowed to use async here? 
 
-    try{
-      for (let recipeUrl of RECIPE_URLS ){ //for loop after try 
+    for (let recipeUrl of RECIPE_URLS ){ //for loop after try 
+      try{
         let fetchData = await fetch(recipeUrl);
         let file = await fetchData.json();
         requestRecipes.push(file);
+        if (requestRecipes.length == RECIPE_URLS.length){
+          saveRecipesToStorage(requestRecipes);
+          resolve(requestRecipes);
+        }
       }
-
-      saveRecipesToStorage(requestRecipes);
-      resolve(requestRecipes);
+    
+      catch (err){
+        console.log(err);
+        reject(err);
+      }
     }
-    catch (err){
-      console.log(err);
-      reject(err);
-    }
-});
+  });
 }
 
 /**
